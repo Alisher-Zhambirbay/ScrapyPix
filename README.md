@@ -15,7 +15,7 @@
 Clone the repository:
 
    ```bash
-   git clone https://github.com/IR77kz/ScrapyPix.git
+   git clone https://github.com/Alisher-Zhambirbay/ScrapyPix.git
    cd ScrapyPix
    ```
 
