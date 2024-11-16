@@ -37,6 +37,10 @@ def __log__(*args):
 def download_image(url, folder, filename, delay = 1, index: int = 0, logger = __log__):
     try:
         response = requests.get(url, stream = True, timeout = 10)
+        
+        if response.status_code == 429: # if request blocked Python;
+            headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+            response = requests.get(url, stream = True, timeout = 10, headers = headers)
 
         if response.status_code == 200:
             os.makedirs(folder, exist_ok = True)
@@ -49,6 +53,7 @@ def download_image(url, folder, filename, delay = 1, index: int = 0, logger = __
 
             logger(f"({index}) Image saved: {filepath}", 5)
             sleep(delay)
+            
         else:
             logger(f"Cannot load {url}, Status: {response.status_code}")
 
@@ -57,6 +62,7 @@ def download_image(url, folder, filename, delay = 1, index: int = 0, logger = __
 
 def scrape_images(base_url: str, output_folder="images", delay = 1, max_images = -1, logger = __log__):
     rewrite_files = -1
+    
     try:
         base_url = __validate__(base_url)
         response = requests.get(base_url, timeout = 10)
@@ -121,7 +127,9 @@ def scrape_images(base_url: str, output_folder="images", delay = 1, max_images =
                 continue
 
             download_image(img_url, output_folder, filename, delay, index, logger = logger)
+            
             count += 1
+            
             if count == max_images:
                 logger(f"Ended for max images ({max_images})", 4)
                 return 1
