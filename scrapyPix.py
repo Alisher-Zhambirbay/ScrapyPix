@@ -26,7 +26,7 @@ def log(message="", type: int = INFO):
             type_text = f"{Fore.YELLOW}[WARN] {message}"
         elif type == ERROR:
             type_text = f"{Fore.RED}[ERROR] {message}"
-        print(type_text)
+        print(type_text, Fore.RESET)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Download files using URL.")
