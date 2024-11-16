@@ -1,7 +1,6 @@
 import os
 import sys
 import argparse
-import platform
 import subprocess
 import ImageTooker as ima
 
@@ -11,6 +10,12 @@ from colorama import Fore, just_fix_windows_console
 INFO = 1
 WARN = 2
 ERROR = 3
+
+def is_win_platform():
+    return sys.platform in ["win32", "cygwin", "msys"]
+
+def is_other_platform():
+    return sys.platform in ["darwin", "linux", "linux2"]
 
 def log(message="", type: int = INFO):
     type_text = ""
@@ -52,7 +57,7 @@ def parse_args():
 def add_to_path():
     script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
 
-    if platform.system() == "Windows":
+    if is_win_platform():
         current_path = os.environ.get('PATH', '')
         if script_directory not in current_path:
             try:
@@ -63,7 +68,7 @@ def add_to_path():
         else:
             print(f"{script_directory} is already in PATH.")
     
-    elif platform.system() in ["Linux", "Darwin"]:
+    elif is_other_platform():
         shell_config_files = [os.path.expanduser("~/.bashrc"), os.path.expanduser("~/.zshrc")]
         
         for config_file in shell_config_files:
@@ -82,17 +87,14 @@ def main():
 
     args = parse_args()
     inscode = installs()
-    system = platform.system()
 
     if not __name__.__eq__("__main__") or inscode == 0:
         exit(0)
     else:
         inscode = None
         del inscode
-        del args
-        del system
 
-    if system == "Windows":
+    if is_win_platform():
         just_fix_windows_console()
 
     URL = args.url
@@ -116,7 +118,6 @@ def main():
     MAX_IMAGES = None
 
     del args
-    del system
 
 if __name__ == "__main__":
     main()
