@@ -111,12 +111,12 @@ def scrape_images(base_url: str, output_folder="images", delay = 1, max_images =
 
             filepath = os.path.join(output_folder, filename)
 
-            if rewrite_files == -1 and os.path.isfile(filepath):
+            if rewrite_files == -1 and os.path.exists(filepath):
                 logger(filepath, "already exists")
 
                 rewrite_files = __ask__("Rewrite files that existen ")
 
-            if rewrite_files == 0:
+            if rewrite_files == 0 and os.path.exists(filepath):
                 logger("skipping")
                 continue
 
