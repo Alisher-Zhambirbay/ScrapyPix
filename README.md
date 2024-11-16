@@ -8,7 +8,7 @@
 - **Customizable Settings**: Set a delay between downloads and a maximum number of images to download.
 - **Cross-platform**: Works on Windows, Linux, and macOS.
 - **Path Setup**: Automatically adds the script’s directory to the system’s `PATH` for easy execution.
-- **Logging**: Provides helpful logging with different levels: `INFO`, `WARN`, and `ERROR`.
+- **Logging**: Provides helpful logging with different levels: `INFO`, `WARN`, `DEBUG`, `SUCCESS` and `ERROR`.
 
 ## Installation
 
@@ -79,7 +79,7 @@ The script supports three log levels:
 - **INFO**: General information about the script's progress.
 - **WARN**: Warnings, e.g., when files cannot be added to `PATH`.
 - **ERROR**: Errors, e.g., if something goes wrong during scraping or file downloading.
-
+- **SUCCES**: Completed operations, e.g., when something completes successfully.
 Logs will be printed to the console with appropriate colors for each log level.
 
 ## License
