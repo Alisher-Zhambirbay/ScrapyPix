@@ -1,6 +1,24 @@
 import os
+import sys
+import ctypes
 import subprocess
 from datetime import datetime
+
+def is_win_platform():
+    return sys.platform in ["win32", "cygwin", "msys"]
+
+def is_other_platform():
+    return sys.platform in ["darwin", "linux", "linux2"]
+
+def is_admin():
+    if is_win_platform():
+        try:
+            return ctypes.windll.shell32.IsUserAnAdmin() != 0
+        except:
+            return False
+        
+    elif is_other_platform():
+        return os.geteuid() == 0
 
 def installs():
     """
@@ -25,9 +43,7 @@ def installs():
             
             with open(installed_marker, 'w') as file:
                 file.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-                
-            print("Requirements installed successfully and date saved.")
-            
+
             return 1
         except Exception as exception:
             print(f"Error in installs: {exception}")
