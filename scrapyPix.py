@@ -49,12 +49,11 @@ def main():
 
     just_fix_windows_console()
 
-    log("Starting scraping")
-
     try:
+        log("Starting scraping")
         data = ima.scrape_images(URL, DOWNLOAD_PATH, DELAY, MAX_IMAGES, logger = log)
         log(f"Program ended ({data})", SUCCESS)
-
+        
     except KeyboardInterrupt: pass
     except Exception as exception:
         log(f"Exception: {exception}", ERROR)
