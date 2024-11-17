@@ -33,8 +33,10 @@ def parse_args():
     return parser.parse_args()
 
 def main():
+    just_fix_windows_console()
+
     args = parse_args()
-    inscode = installs()
+    inscode = installs(log)
 
     URL = args.url
     DOWNLOAD_PATH = args.path
@@ -47,8 +49,6 @@ def main():
         inscode = None
         del inscode
 
-    just_fix_windows_console()
-
     try:
         log("Starting scraping")
         data = ima.scrape_images(URL, DOWNLOAD_PATH, DELAY, MAX_IMAGES, logger = log)
@@ -60,5 +60,5 @@ def main():
 
     del args
 
-if __name__ == "__main__":
+if __name__.__eq__("__main__"):
     main()
