@@ -1,13 +1,11 @@
 # ScrapyPix
 
-**ScrapyPix** is a Python tool designed for downloading images from URLs with an option to set a delay and a maximum limit for the number of images to download. It supports automatic addition to the system's `PATH` on Windows, Linux, and macOS for easier execution from anywhere in the terminal.
+**ScrapyPix** is a Python tool designed for downloading images from URLs with an option to set a delay and a maximum limit for the number of images to download.
 
 ## Features
-
 - **Image Scraping**: Downloads images from a given URL.
 - **Customizable Settings**: Set a delay between downloads and a maximum number of images to download.
 - **Cross-platform**: Works on Windows, Linux, and macOS.
-- **Path Setup**: Automatically adds the script’s directory to the system’s `PATH` for easy execution.
 - **Logging**: Provides helpful logging with different levels: `INFO`, `WARN`, `DEBUG`, `SUCCESS` and `ERROR`.
 
 ## Installation
@@ -33,7 +31,7 @@ The tool can be run from the command line with the following arguments:
 ### Example Command:
 
 ```bash
-python scrapyPix.py -u "https://example.com/images" -p "images/" -d 2 -m 5
+py scrapyPix.py -u "https://example.com/images" -p "images/" -d 2 -m 5
 ```
 
 This command will scrape images from the URL `https://example.com/images`, save them to the `images/` directory, with a 2-second delay between downloads and a maximum of 5 images.
@@ -48,29 +46,6 @@ The script uses the `ImageTooker` module to scrape images from the provided URL.
 
 ### 3. **Logging**:
 The script logs the progress and any errors or warnings during the scraping process to provide feedback to the user.
-
-## Path Setup
-
-The script automatically adds the directory where it is located to the system’s `PATH` for both Windows and Unix-based systems. This allows you to run `scrapyPix.py` from any directory without having to navigate to its folder. 
-
-### Windows
-
-The script updates the system’s `PATH` using the `setx` command.
-
-### Linux/macOS
-
-The script appends the directory path to `.bashrc` or `.zshrc`, depending on which shell configuration file exists in the user's home directory.
-
-### Manual Path Addition
-
-If the automatic method fails, you can manually add the script's directory to your `PATH`:
-
-1. For **Windows**, go to *System Properties* > *Advanced* > *Environment Variables* and add the script directory to the `PATH` variable.
-2. For **Linux/macOS**, add the following line to `~/.bashrc` or `~/.zshrc`:
-
-   ```bash
-   export PATH="$PATH:/path/to/scrapyPix"
-   ```
 
 ## Logs
 
