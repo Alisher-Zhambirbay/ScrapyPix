@@ -9,15 +9,18 @@ def is_win_platform():
 def is_other_platform():
     return sys.platform in ["darwin", "linux", "linux2"]
 
-def __hide_file__(file_path):
+def __log__(*args):
+    print(*args)
+
+def __hide_file__(file_path, logger = __log__):
     if is_win_platform():
         try:
             subprocess.run(["attrib", "+h", "+s", file_path], check=True)
-            print(f"Hidden file on Windows: {file_path}")
+            logger(f"Hidden file on Windows: {file_path}")
         except Exception as e:
-            print(f"Failed to hide file on Windows: {e}")
+            logger(f"Failed to hide file on Windows: {e}", 3)
 
-def installs():
+def installs(logger = __log__):
     """
     Checks installed requirements and saves the installation date if successful.
     This function is designed to work on both Windows and Unix-based systems.
@@ -27,11 +30,11 @@ def installs():
 
     if os.path.exists(requirements) and os.path.isfile(requirements):
         if os.path.exists(installed_marker):
-            print("Requirements already installed.")
+            logger("Requirements already installed.", 1)
 
             with open(installed_marker, 'r') as file:
                 install_date = file.read().strip()
-                print(f"Last installation date: {install_date}")
+                logger(f"Last installation date: {install_date}")
 
             return 1
 
@@ -45,15 +48,15 @@ def installs():
             with open(installed_marker, 'w') as file:
                 file.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-            __hide_file__(installed_marker)
+            __hide_file__(installed_marker, logger = logger)
 
-            print("Requirements installed successfully.")
+            logger("Requirements installed successfully.", 4)
             return 1
 
         except Exception as exception:
-            print(f"Error in installs: {exception}")
+            logger(f"Error in installs: {exception}", 3)
             return 0
 
     else:
-        print(f"Cannot find the requirement file ({requirements}).")
+        logger(f"Cannot find the requirement file ({requirements}).", 3)
         return 0
