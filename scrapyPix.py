@@ -3,7 +3,6 @@ import ImageTooker as ima
 
 from check import *
 from logger import *
-from colorama import just_fix_windows_console
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Download files using URL.")
@@ -33,8 +32,6 @@ def parse_args():
     return parser.parse_args()
 
 def main():
-    just_fix_windows_console()
-
     args = parse_args()
     inscode = installs(log)
 
